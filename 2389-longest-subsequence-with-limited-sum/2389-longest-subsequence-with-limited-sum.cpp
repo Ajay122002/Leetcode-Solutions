@@ -1,31 +1,28 @@
-class Solution 
-{
+class Solution {
 public:
-    
-    
     vector<int> answerQueries(vector<int>& nums, vector<int>& queries) 
     {
-        sort(nums.begin(), nums.end());
-        
-        vector<int> pre_sum;
-        int sum=0;
-        
-        for(int i=0; i<nums.size(); i++)
+        vector<int>ans;
+        priority_queue<int,vector<int>,greater<int>>pq;
+        for(auto it : nums)
         {
-            sum += nums[i];
-            pre_sum.push_back(sum);
+            pq.push(it);
         }
         
-        vector<int> ans(queries.size(), 0);
-        for(int i=0; i<queries.size(); i++)
+        int n = queries.size();
+        for(int i=0;i<n;i++)
         {
-            for(int j=0; j<nums.size(); j++)
+            priority_queue<int,vector<int>,greater<int>>temp = pq;
+            int len = 0;
+            int val = queries[i];
+            while(!temp.empty() and temp.top()<=val)
             {
-                if(pre_sum[j] <= queries[i]) ans[i] = j+1;
-                else break;
+                len++;
+                val-=temp.top();
+                temp.pop();
             }
+            ans.push_back(len);
         }
         return ans;
-        
     }
 };
