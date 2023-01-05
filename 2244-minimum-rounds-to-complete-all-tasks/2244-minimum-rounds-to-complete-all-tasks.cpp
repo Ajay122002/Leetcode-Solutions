@@ -10,7 +10,8 @@ public:
         for(auto i:mp){
             int curr = i.second;
             if(curr == 1) return -1;
-            if(curr == 2 ) ans++;
+            if(curr == 2 ) {ans++;
+                           continue;}
             if(curr%3 == 0){
                 ans+=curr/3;
             }else if(curr==4){
